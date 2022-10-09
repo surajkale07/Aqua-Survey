@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Email</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <form class="form" name="myform" action="#">
+        <h2>GIVE FEEDBACK</h2>
+        <p type="Name:">
+            <input id="Name" placeholder="name" class="name" pattern="^[a-zA-Z ]*$"
+                   title="Invalid name(only characters are allowed)" required>
+        </p>
+        <p type="Email:">
+            <input id="Email" placeholder="email" class="email" pattern="[^@\s]+@[^@\s]+"
+                   title="Invalid email address(example:abc123@gmail.com)" required>
+        </p>
+        <p type="Message:">
+            <input id="Message" placeholder="What would you like to tell us.." class="message" pattern="^[a-zA-Z ]*$"
+                   title="Invalid (only characters are allowed)" required>
+        </p>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <script>
+        const form= document.querySelector('.form');
+        function sendEmail(e){
+            e.preventDefault(); 
+    
+        const name= document.querySelector('.name'),
+              email= document.querySelector('.email'),
+              message= document.querySelector('.message');
+
+        Email.send({
+            Host : "smtp.gmail.com",
+            Username : "aquasurvey0707@gmail.com",
+            Password : "qbfrjqshluwpyupt",
+            To : "aquasurvey0707@gmail.com",
+            From : email.value,
+            Subject : "Feedback from "+name.value,
+            Body : message.value
+        }).then(function(message){
+            if(message == "OK"){
+                alert("Mail send");
+            }
+            else{
+                alert(message)
+            }
+          }
+        );
+        }
+        form.addEventListener('submit',sendEmail)
+        </script>
+</body>
+</html>
